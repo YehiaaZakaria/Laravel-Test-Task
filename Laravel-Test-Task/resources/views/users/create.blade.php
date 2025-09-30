@@ -76,13 +76,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                <label for="phone" class="form-label">Phone Number</label>
                                 <div class="input-group">
                                     <select class="form-select country-code-select @error('phone') is-invalid @enderror" 
                                             id="country_code" 
                                             name="country_code" 
-                                            style="max-width: 120px;"
-                                            required>
+                                            style="max-width: 120px;">
                                         <option value="">Select Country</option>
                                     </select>
                                     <input type="text" 
@@ -90,13 +89,12 @@
                                            id="phone" 
                                            name="phone" 
                                            value="{{ old('phone') }}" 
-                                           placeholder="Phone number"
-                                           required>
+                                           placeholder="Phone number">
                                 </div>
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <div class="form-text">Country code + phone number (Required)</div>
+                                <div class="form-text">Country code + phone number (Optional)</div>
                             </div>
                         </div>
                         

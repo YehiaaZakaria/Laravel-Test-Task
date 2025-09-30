@@ -31,12 +31,16 @@ class UserController extends Controller
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Password::min(8)],
-            'country_code' => 'required|string',
-            'phone' => 'required|string|max:20',
+            'country_code' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
             'profile_picture' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $validated['phone'] = $validated['country_code'] . $validated['phone'];
+        if ($validated['country_code'] && $validated['phone']) {
+            $validated['phone'] = $validated['country_code'] . $validated['phone'];
+        } elseif (!$validated['phone']) {
+            $validated['phone'] = null;
+        }
         
         unset($validated['country_code']);
 
@@ -68,12 +72,16 @@ class UserController extends Controller
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8|confirmed',
-            'country_code' => 'required|string',
-            'phone_number' => 'required|string|max:20',
+            'country_code' => 'nullable|string',
+            'phone_number' => 'nullable|string|max:20',
             'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
-        $validated['phone'] = $validated['country_code'] . $validated['phone_number'];
+        if ($validated['country_code'] && $validated['phone_number']) {
+            $validated['phone'] = $validated['country_code'] . $validated['phone_number'];
+        } elseif (!$validated['phone_number']) {
+            $validated['phone'] = null;
+        }
         
         unset($validated['country_code'], $validated['phone_number']);
 
